@@ -2,6 +2,7 @@
 
 const puppeteer = require('puppeteer');
 const fs = require('fs/promises');
+const cron = require('node-cron');
 
 async function start() {
   const browser = await puppeteer.launch({ headless: 'new' });
@@ -47,11 +48,16 @@ async function start() {
   await page.type('#ourfield', 'blue');
   //here we have to use Promise.all([]) to be sure that all promises will fulfill in the right time:
   await Promise.all([page.click('#ourform button'), page.waitForNavigation()]);
-
   const sensitiveInfo = await page.$eval('#message', (el) => el.textContent);
   console.log(sensitiveInfo);
 
   await browser.close();
 }
 
-start();
+// //simply call the function:
+// start()
+
+// //"schedule" the function to run every 5s:
+// setInterval(start, 5000)
+
+cron.schedule('*/5 * * * * *', start);
