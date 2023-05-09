@@ -1,6 +1,7 @@
 // https://www.youtube.com/watch?v=WOhtW3KxGHo&list=PLuJJZ-W1NwdqgvE0D-1SMS7EpWIC5cKqu&index=2&ab_channel=MichaelKitas
 
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -64,6 +65,18 @@ const puppeteer = require('puppeteer');
 
       if (title !== 'Null') {
         items.push({ title, price, img });
+
+        //feed the .csv file:
+        fs.appendFile(
+          'results.csv',
+          `${title.replaceAll(',', ' |')},${price.replaceAll(
+            ',',
+            '.'
+          )},${img}\n`,
+          (err) => {
+            if (err) throw err;
+          }
+        );
       }
     }
 
