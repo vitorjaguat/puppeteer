@@ -37,35 +37,50 @@ const puppeteer = require('puppeteer');
   let price = 'Null';
   let img = 'Null';
   let items = [];
+  let isBtnDisabled = false;
 
-  for (const productHandle of productHandles) {
-    try {
-      title = await page.evaluate(
-        (el) => el.querySelector('h2 > a > span').textContent,
-        productHandle
-      );
-    } catch (error) {}
+  while (!isBtnDisabled) {
+    for (const productHandle of productHandles) {
+      try {
+        title = await page.evaluate(
+          (el) => el.querySelector('h2 > a > span').textContent,
+          productHandle
+        );
+      } catch (error) {}
 
-    try {
-      price = await page.evaluate(
-        (el) => el.querySelector('.a-price > .a-offscreen').textContent,
-        productHandle
-      );
-    } catch (error) {}
+      try {
+        price = await page.evaluate(
+          (el) => el.querySelector('.a-price > .a-offscreen').textContent,
+          productHandle
+        );
+      } catch (error) {}
 
-    try {
-      img = await page.evaluate(
-        (el) => el.querySelector('.s-image').getAttribute('src'),
-        productHandle
-      );
-    } catch (error) {}
+      try {
+        img = await page.evaluate(
+          (el) => el.querySelector('.s-image').getAttribute('src'),
+          productHandle
+        );
+      } catch (error) {}
 
-    if (title !== 'Null') {
-      items.push({ title, price, img });
+      if (title !== 'Null') {
+        items.push({ title, price, img });
+      }
+    }
+
+    await page.waitForSelector('.s-pagination-next', { visible: true });
+
+    const is_disabled =
+      (await page.$('.s-pagination-next.s-pagination-disabled')) !== null;
+
+    isBtnDisabled = is_disabled;
+
+    if (!is_disabled) {
+      await page.click('.s-pagination-next');
+      //   await page.waitForNavigation();
     }
   }
 
-  console.log(items.length);
+  console.log(items);
 
   await browser.close();
 })();
