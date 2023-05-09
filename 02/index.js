@@ -60,4 +60,5 @@ async function start() {
 // //"schedule" the function to run every 5s:
 // setInterval(start, 5000)
 
+//schedule with more details using node-cron:
 cron.schedule('*/5 * * * * *', start);
