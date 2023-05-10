@@ -10,6 +10,7 @@ const urls = [
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_PAGE,
     maxConcurrency: 10,
+    monitor: true,
     puppeteerOptions: {
       headless: 'new',
       //   defaultViewport: null,
