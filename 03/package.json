@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": "^20.1.2",
-    "puppeteer-cluster": "^0.23.0"
+    "puppeteer-cluster": "^0.23.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
