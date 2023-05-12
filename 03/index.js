@@ -14,24 +14,6 @@ const fs = require('fs');
     'https://www.amazon.com.br/s?k=sabor+cereja&__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1VMB9VWPKCKNR&sprefix=sabor+cereja%2Caps%2C235&ref=nb_sb_noss_2'
   );
 
-  //   //   select all result cards and get title:
-  //   const titles = await page.$$eval('.s-card-container', (cardsArr) =>
-  //     cardsArr.map((card) => card.querySelector('h2 a span').textContent)
-  //   );
-  //   console.log(titles);
-  //   //select all result cards and get prices:
-  //   const prices = await page.$$eval('.s-card-container', (cardsArr) =>
-  //     cardsArr.map(
-  //       (card) =>
-  //         // card.querySelector('.a-price-symbol').textContent +
-  //         // card.querySelector('.a-price-whole').textContent +
-  //         // ',' +
-  //         // card.querySelector('.a-price-fraction').textContent
-  //         card.querySelector('.a-price > .a-offscreen').textContent
-  //     )
-  //   );
-  //   console.log(prices);
-
   const productHandles = await page.$$('.s-card-container');
 
   let title = 'Null';
